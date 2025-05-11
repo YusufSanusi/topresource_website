@@ -1,0 +1,31 @@
+{% load static %}
+
+<footer>
+    <div class="container">
+        <div class="logo" style="color: var(--md-sys-color-on-primary);">TopResource</div>
+        <p>Bringing your stories to life through animation</p>
+        
+        <ul class="footer-links">
+            <li><a href="{% url 'landing_page' %}">Home</a></li>
+                <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'testimonials' %}">Testimonials</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+        </ul>
+        
+        <div class="social-links">
+            <a href="#" class="social-link">
+                <span class="material-symbols-outlined">mail</span>
+            </a>
+            <a href="#" class="social-link">
+                <span class="material-symbols-outlined">photo_camera</span>
+            </a>
+            <a href="#" class="social-link">
+                <span class="material-symbols-outlined">work</span>
+            </a>
+        </div>
+        
+        <p>&copy; 2025 TopResource. All rights reserved.</p>
+    </div>
+</footer>

@@ -1,0 +1,76 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Services{% endblock %}
+
+{% block content %}
+
+<!-- Services Section -->
+<section class="section" id="services">
+    <div class="container">
+        <div class="section-title">
+            <h2>Here's What I Offer</h2>
+            <p>Ready to bring your vision to life? Here's how I can help.</p>
+        </div>
+        
+        <div class="service-details">
+            <h2>Animated Explainer Videos</h2>
+            <p>Perfect for landing pages, ads, or product demos.</p>
+            
+            <ul class="service-features">
+                <li>Scriptwriting (if needed)</li>
+                <li>Voice-over (optional)</li>
+                <li>2D custom animation</li>
+                <li>Background music + SFX</li>
+            </ul>
+            
+            <div class="service-price">Starts at $150</div>
+            <a href="#contact" class="btn btn-primary">Get Started</a>
+        </div>
+        
+        <div class="service-details">
+            <h2>Educational & Training Videos</h2>
+            <p>Make learning fun and memorable.</p>
+            
+            <ul class="service-features">
+                <li>Clear explanations of complex topics</li>
+                <li>Engaging visuals to aid retention</li>
+                <li>Custom illustrations</li>
+                <li>Interactive elements (optional)</li>
+            </ul>
+            
+            <div class="service-price">Starts at $120</div>
+            <a href="#contact" class="btn btn-primary">Get Started</a>
+        </div>
+        
+        <div class="service-details">
+            <h2>Custom Animation Projects</h2>
+            <p>Have something unique in mind? Let's brainstorm it together.</p>
+            
+            <ul class="service-features">
+                <li>Character animation</li>
+                <li>Motion graphics</li>
+                <li>Whiteboard animation</li>
+                <li>Special effects</li>
+            </ul>
+            
+            <a href="{% url 'contact' %}" class="btn btn-primary">Request a Custom Quote</a>
+        </div>
+        
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">What's the turnaround time?</div>
+                <p>Most projects are completed within 5–10 days.</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Can I request revisions?</div>
+                <p>Absolutely! 2–3 rounds are included depending on the package.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

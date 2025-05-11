@@ -1,0 +1,20 @@
+{% load static %}
+
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">TopResource</div>
+            <button class="mobile-menu-btn">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="{% url 'landing_page' %}">Home</a></li>
+                <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'testimonials' %}">Testimonials</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
