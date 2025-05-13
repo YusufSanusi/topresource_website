@@ -33,14 +33,18 @@ def contact(request):
         message_content = request.POST['message_content']
 
         subject = f'You have received a message from TopResource.com from {name}'
-        message = f'sender: {email}\nvideo type: {video_type}\nmessage: {message_content}'
+        message = f'This is a test email to demostrate the email capabilities of the website. You can literally write any mail you want and send it. For example I am Yusuf. I went to the market. Bla, bla bla.\nsender: {email}\nvideo type: {video_type}\nmessage: {message_content}'
+        fail_silently = True
+
+        if settings.DEBUG:
+            fail_silently = False
 
         send_mail(
             subject,
             message,
             settings.EMAIL_HOST_USER,
             [email],
-            fail_silently=True,
+            fail_silently=fail_silently,
         )
 
         return redirect('landing_page')
