@@ -14,20 +14,21 @@
         </div>
         
         <div class="contact-form">
-            <form>
+            <form action="{% url 'contact' %}" method="POST">
+                {% csrf_token %}
                 <div class="form-group">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" id="name" class="form-control" required>
+                    <input type="text" name="name" id="name" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" class="form-control" required>
+                    <input type="email" name="email" id="email" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="service" class="form-label">What kind of video do you need?</label>
-                    <select id="service" class="form-control">
+                    <select id="service" name="video_type" class="form-control">
                         <option value="">Select a service</option>
                         <option value="explainer">Explainer Video</option>
                         <option value="educational">Educational Video</option>
@@ -38,7 +39,7 @@
                 
                 <div class="form-group">
                     <label for="message" class="form-label">Tell me more!</label>
-                    <textarea id="message" class="form-control"></textarea>
+                    <textarea id="message" name="message_content" class="form-control"></textarea>
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Send Message</button>
