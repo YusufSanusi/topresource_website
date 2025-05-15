@@ -116,3 +116,4 @@ node_modules/
 
 # Project specific
 dsai.html
+build.sh
