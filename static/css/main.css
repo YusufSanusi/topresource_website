@@ -1,3 +1,4 @@
+
 :root {
   /* Material Design 3 Color Tokens */
   --md-sys-color-primary: #6750a4;
@@ -308,43 +309,81 @@ nav {
   margin-bottom: 1rem;
 }
 
-/* Testimonials */
-.testimonials {
-  background-color: var(--md-sys-color-primary-container);
-  padding: 4rem 0;
+/* Testimonial Carousel */
+.testimonial-carousel {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
-.testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+.carousel-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
 }
 
 .testimonial-card {
-  background-color: var(--md-sys-color-surface);
-  border-radius: var(--md-shape-corner-medium);
+  flex: 0 0 100%;
   padding: 2rem;
-  box-shadow: var(--md-elevation-level-1);
+  box-sizing: border-box;
+  text-align: center;
 }
 
-.testimonial-text {
-  font-style: italic;
-  margin-bottom: 1.5rem;
-  position: relative;
+.carousel-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 1rem;
 }
 
-.testimonial-text::before {
-  content: '"';
-  font-size: 3rem;
-  color: var(--md-sys-color-primary);
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--md-sys-color-surface-variant);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.carousel-dot.active {
+  background-color: var(--md-sys-color-primary);
+}
+
+.carousel-btn {
   position: absolute;
-  top: -1.5rem;
-  left: -1rem;
-  opacity: 0.2;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--md-sys-color-surface);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--md-elevation-level-1);
+  z-index: 10;
+  color: var(--md-sys-color-primary);
 }
 
-.testimonial-author {
-  font-weight: 500;
+.carousel-btn:hover {
+  background-color: var(--md-sys-color-primary-container);
+}
+
+.carousel-btn.prev {
+  left: 1rem;
+}
+
+.carousel-btn.next {
+  right: 1rem;
+}
+
+@media (max-width: 768px) {
+  .carousel-btn {
+      display: none;
+  }
 }
 
 /* Contact Form */
