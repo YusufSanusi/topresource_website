@@ -42,6 +42,8 @@ if os.getenv('RENDER_EXTERNAL_HOSTNAME'):
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
+    'projects.apps.ProjectsConfig',
     'pages.apps.PagesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -155,6 +158,28 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'pages/static'
 ]
+
+
+# Storages
+
+STORAGES = {
+    'default': {
+        'BACKEND': 'storages.backends.s3.S3Storage',
+        'OPTIONS': {
+          'bucket_name': os.getenv('AWS_STORAGE_BUCKET_NAME'),
+          'access_key': os.getenv('AWS_ACCESS_KEY_ID'),
+          'secret_key': os.getenv('AWS_SECRET_ACCESS_KEY'),
+          'region_name': os.getenv('AWS_S3_REGION_NAME'),
+          'file_overwrite': True,
+          'default_acl': 'private',
+          'location': 'media',
+        },
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

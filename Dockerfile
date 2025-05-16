@@ -12,7 +12,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Install dependencies first for caching benefit
-RUN pip install --upgrade --no-cache-dir pip~=25
+RUN pip install --upgrade --no-cache-dir pip==25.1.1
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 

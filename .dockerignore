@@ -116,3 +116,5 @@ node_modules/
 
 # Project specific
 dsai.html
+docker-compose.yaml
+static/

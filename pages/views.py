@@ -9,10 +9,6 @@ def landing_page(request):
     return render(request, 'pages/landing-page.html')
 
 
-def portfolio(request):
-    return render(request, 'pages/portfolio.html')
-
-
 # def testimonials(request):
 #     return render(request, 'pages/testimonials.html')
 
