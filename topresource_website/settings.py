@@ -44,7 +44,7 @@ if os.getenv('RENDER_EXTERNAL_HOSTNAME'):
 # Application definition
 
 INSTALLED_APPS = [
-    'core.apps.CoreConfig',
+    'pages.apps.PagesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
