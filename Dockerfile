@@ -12,7 +12,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Install dependencies first for caching benefit
-RUN pip install --upgrade pip
+RUN pip install --upgrade --no-cache-dir pip~=25
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -50,4 +50,5 @@ EXPOSE 8000
 RUN chmod +x /app/entrypoint.prod.sh
 
 # Start the application using Gunicorn
-CMD [ "/app/entrypoint.prod.sh" ]
+ENTRYPOINT [ "/app/entrypoint.prod.sh" ]
+CMD [ "3" ]

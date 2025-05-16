@@ -6,23 +6,23 @@ from django.conf import settings
 
 # Create your views here.
 def landing_page(request):
-    return render(request, 'core/landing-page.html')
+    return render(request, 'pages/landing-page.html')
 
 
 def portfolio(request):
-    return render(request, 'core/portfolio.html')
+    return render(request, 'pages/portfolio.html')
 
 
 # def testimonials(request):
-#     return render(request, 'core/testimonials.html')
+#     return render(request, 'pages/testimonials.html')
 
 
 def services(request):
-    return render(request, 'core/services.html')
+    return render(request, 'pages/services.html')
 
 
 # def lead_magnet(request):
-#     return render(request, 'core/lead-magnet.html')
+#     return render(request, 'pages/lead-magnet.html')
 
 
 def contact(request):
@@ -49,8 +49,8 @@ def contact(request):
 
         return redirect('landing_page')
 
-    return render(request, 'core/contact.html')
+    return render(request, 'pages/contact.html')
 
 
 # def about(request):
-#     return render(request, 'core/about.html')
+#     return render(request, 'pages/about.html')
