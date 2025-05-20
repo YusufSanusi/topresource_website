@@ -42,6 +42,8 @@ if os.getenv('RENDER_EXTERNAL_HOSTNAME'):
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
+
     'users.apps.UsersConfig',
     'projects.apps.ProjectsConfig',
     'pages.apps.PagesConfig',
@@ -51,6 +53,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'thumbnails',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -152,10 +157,11 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = f'https://{os.getenv('AWS_STORAGE_BUCKET_NAME')}.s3.amazonaws.com/media/'
+MEDIA_URL = '/media/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 # MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.getenv('AWS_S3_URL', '')
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
@@ -180,44 +186,71 @@ STORAGES = {
     'staticfiles': {
         'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
     },
+    # 'videos': {
+    #     'BACKEND': 'storages.backends.s3.S3Storage',
+    #     'OPTIONS': {
+    #         'bucket_name': os.getenv('AWS_STORAGE_BUCKET_NAME'),
+    #         'access_key': os.getenv('AWS_ACCESS_KEY_ID'),
+    #         'secret_key': os.getenv('AWS_SECRET_ACCESS_KEY'),
+    #         'region_name': os.getenv('AWS_S3_REGION_NAME'),
+    #         'location': 'videos',
+    #         'default_acl': 'public-read',
+    #         'file_overwrite': False,
+    #     },
+    # },
+    # 'thumbnails': {
+    #     'BACKEND': 'storages.backends.s3.S3Storage',
+    #     'OPTIONS': {
+    #         'bucket_name': os.getenv('AWS_STORAGE_BUCKET_NAME'),
+    #         'access_key': os.getenv('AWS_ACCESS_KEY_ID'),
+    #         'secret_key': os.getenv('AWS_SECRET_ACCESS_KEY'),
+    #         'region_name': os.getenv('AWS_S3_REGION_NAME'),
+    #         'location': 'thumbnails',
+    #         'default_acl': 'public-read',
+    #         'file_overwrite': True,
+    #     },
+    # },
 }
 
-# Thumbnail settings
+# Thumbnail Settings
 THUMBNAILS = {
     'METADATA': {
         'BACKEND': 'thumbnails.backends.metadata.DatabaseBackend',
     },
     'STORAGE': {
-        'BACKEND': 'django.core.files.storage.FileSystemStorage',
-        # You can also use Amazon S3 or any other Django storage backends
+        'BACKEND': 'storages.backends.s3.S3Storage',
+        'OPTIONS': {
+          'bucket_name': os.getenv('AWS_STORAGE_BUCKET_NAME'),
+          'access_key': os.getenv('AWS_ACCESS_KEY_ID'),
+          'secret_key': os.getenv('AWS_SECRET_ACCESS_KEY'),
+          'region_name': os.getenv('AWS_S3_REGION_NAME'),
+          'file_overwrite': True,
+          'default_acl': 'private',
+          'location': 'media/thumbnails',
+        },
     },
+    # 'BASEDIR': '',
+    # 'PROCESSORS': {
+    #     'video_thumbnail': 'videos.processors.VideoThumbnailProcessor',
+    # },
+    'EXTENSION': 'webp',
     'SIZES': {
         'small': {
             'PROCESSORS': [
-                {'PATH': 'thumbnails.processors.resize', 'width': 10, 'height': 10},
-                {'PATH': 'thumbnails.processors.crop', 'width': 80, 'height': 80}
+                {'PATH': 'thumbnails.processors.resize', 'width': 320, 'height': 240, 'time': 2.5, 'quality': 80},
+            ],
+        },
+        'medium': {
+            'PROCESSORS': [
+                {'PATH': 'thumbnails.processors.resize', 'width': 640, 'height': 480, 'time': 2.5, 'quality': 80},
             ],
         },
         'large': {
             'PROCESSORS': [
-                {'PATH': 'thumbnails.processors.resize', 'width': 20, 'height': 20},
-            ],
-            'POST_PROCESSORS': [
-                {
-                    'PATH': 'thumbnails.post_processors.optimize',
-                    'png_command': 'optipng -force -o7 "%(filename)s"',
-                    'jpg_command': 'jpegoptim -f --strip-all "%(filename)s"',
-                },
+                {'PATH': 'thumbnails.processors.resize', 'width': 1280, 'height': 720, 'time': 2.5, 'quality': 85},
             ],
         },
-        # 'watermarked': {
-        #     'PROCESSORS': [
-        #         {'PATH': 'thumbnails.processors.resize', 'width': 20, 'height': 20},
-        #         # Only supports PNG. File must be of the same size with thumbnail (20 x 20 in this case)
-        #         {'PATH': 'thumbnails.processors.add_watermark', 'watermark_path': 'watermark.png'}
-        #     ],
-        # }
-    }
+    },
 }
 
 
