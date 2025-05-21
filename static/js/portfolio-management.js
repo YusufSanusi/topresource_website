@@ -1,39 +1,39 @@
 // Sample portfolio data (in a real app, this would come from a database)
-let portfolioData = [
-  {
-    id: 1,
-    name: 'App Explainer Video',
-    client: 'Tech Startup',
-    type: 'Explainer Video',
-    date: '2023-05-15',
-    description:
-      'Client wanted a fun and simple way to explain their new app. We added character animation and upbeat music to keep it light.',
-    videoUrl: 'https://example.com/video1.mp4',
-    thumbnailUrl: 'https://via.placeholder.com/400x225',
-  },
-  {
-    id: 2,
-    name: 'Online Course Intro',
-    client: 'Educational Platform',
-    type: 'Educational Video',
-    date: '2023-03-22',
-    description:
-      'Created an engaging intro sequence for an online course that helped increase student engagement and completion rates.',
-    videoUrl: 'https://example.com/video2.mp4',
-    thumbnailUrl: 'https://via.placeholder.com/400x225',
-  },
-  {
-    id: 3,
-    name: 'Product Demo',
-    client: 'E-commerce Brand',
-    type: 'Explainer Video',
-    date: '2023-01-10',
-    description:
-      'Animated product demo that highlighted key features and resulted in a 30% increase in conversions.',
-    videoUrl: 'https://example.com/video3.mp4',
-    thumbnailUrl: 'https://via.placeholder.com/400x225',
-  },
-]
+// let portfolioData = [
+//   {
+//     id: 1,
+//     title: 'App Explainer Video',
+//     client: 'Tech Startup',
+//     projectType: 'Explainer Video',
+//     projectDate: '2023-05-15',
+//     description:
+//       'Client wanted a fun and simple way to explain their new app. We added character animation and upbeat music to keep it light.',
+//     videoUrl: 'https://example.com/video1.mp4',
+//     thumbnailUrl: 'https://via.placeholder.com/400x225',
+//   },
+//   {
+//     id: 2,
+//     title: 'Online Course Intro',
+//     client: 'Educational Platform',
+//     projectType: 'Educational Video',
+//     projectDate: '2023-03-22',
+//     description:
+//       'Created an engaging intro sequence for an online course that helped increase student engagement and completion rates.',
+//     videoUrl: 'https://example.com/video2.mp4',
+//     thumbnailUrl: 'https://via.placeholder.com/400x225',
+//   },
+//   {
+//     id: 3,
+//     title: 'Product Demo',
+//     client: 'E-commerce Brand',
+//     projectType: 'Explainer Video',
+//     projectDate: '2023-01-10',
+//     description:
+//       'Animated product demo that highlighted key features and resulted in a 30% increase in conversions.',
+//     videoUrl: 'https://example.com/video3.mp4',
+//     thumbnailUrl: 'https://via.placeholder.com/400x225',
+//   },
+// ]
 
 // DOM Elements
 const addNewBtn = document.getElementById('addNewBtn')
@@ -41,10 +41,10 @@ const addPortfolioForm = document.getElementById('addPortfolioForm')
 const portfolioForm = document.getElementById('portfolioForm')
 const cancelBtn = document.getElementById('cancelBtn')
 const portfolioItems = document.getElementById('portfolioItems')
-const deleteModal = document.getElementById('deleteModal')
+// const deleteModal = document.getElementById('deleteModal')
 const closeModal = document.getElementById('closeModal')
-const cancelDelete = document.getElementById('cancelDelete')
-const confirmDelete = document.getElementById('confirmDelete')
+// const cancelDelete = document.getElementById('cancelDelete')
+// const confirmDelete = document.getElementById('confirmDelete')
 
 // Form elements
 const projectId = document.getElementById('id')
@@ -63,17 +63,14 @@ const removeVideo = document.getElementById('removeVideo')
 // const thumbnailFileName = document.getElementById('thumbnailFileName')
 
 // State variables
-let currentProjectId = null
-let projectToDelete = null
+// let currentProjectId = null
+// let projectToDelete = null
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function () {
-  renderPortfolioItems()
-
   // Event listeners
   addNewBtn.addEventListener('click', showAddForm)
   cancelBtn.addEventListener('click', resetForm)
-  // portfolioForm.addEventListener('submit', handleFormSubmit)
 
   // File upload handlers
   videoUpload.addEventListener('click', () => featuredVideo.click())
@@ -81,79 +78,79 @@ document.addEventListener('DOMContentLoaded', function () {
   removeVideo.addEventListener('click', removeUploadedVideo)
 
   // Modal handlers
-  closeModal.addEventListener(
-    'click',
-    () => (deleteModal.style.display = 'none')
-  )
-  cancelDelete.addEventListener(
-    'click',
-    () => (deleteModal.style.display = 'none')
-  )
-  confirmDelete.addEventListener('click', deleteProject)
+  // closeModal.addEventListener(
+  //   'click',
+  //   () => (deleteModal.style.display = 'none')
+  // )
+  // cancelDelete.addEventListener(
+  //   'click',
+  //   () => (deleteModal.style.display = 'none')
+  // )
+  // confirmDelete.addEventListener('click', deleteProject)
 
   // Close modal when clicking outside
-  deleteModal.addEventListener('click', function (e) {
-    if (e.target === deleteModal) {
-      deleteModal.style.display = 'none'
-    }
-  })
+  // deleteModal.addEventListener('click', function (e) {
+  //   if (e.target === deleteModal) {
+  //     deleteModal.style.display = 'none'
+  //   }
+  // })
 })
 
-// Render portfolio items
-function renderPortfolioItems() {
-  portfolioItems.innerHTML = ''
+// // Render portfolio items
+// function renderPortfolioItems() {
+//   portfolioItems.innerHTML = ''
 
-  if (portfolioData.length === 0) {
-    portfolioItems.innerHTML =
-      '<p>No portfolio items yet. Click "Add New Project" to get started.</p>'
-    return
-  }
+//   if (portfolioData.length === 0) {
+//     portfolioItems.innerHTML =
+//       '<p>No portfolio items yet. Click "Add New Project" to get started.</p>'
+//     return
+//   }
 
-  portfolioData.forEach((project) => {
-    const projectElement = document.createElement('div')
-    projectElement.className = 'portfolio-item'
-    projectElement.innerHTML = `
-            <div class="portfolio-item-image">
-                <img src="${project.thumbnailUrl}" alt="${project.name}">
-                <div class="portfolio-item-actions">
-                    <button class="action-btn edit" data-id="${project.id}">
-                        <span class="material-symbols-outlined">edit</span>
-                    </button>
-                    <button class="action-btn delete" data-id="${project.id}">
-                        <span class="material-symbols-outlined">delete</span>
-                    </button>
-                </div>
-            </div>
-            <div class="portfolio-item-content">
-                <h3>${project.title}</h3>
-                <p><strong>Client:</strong> ${project.client}</p>
-                <p><strong>Type:</strong> ${project.project_type}</p>
-                <p><strong>Date:</strong> ${formatDate(
-                  project.project_date
-                )}</p>
-            </div>
-        `
+//   portfolioData.forEach((project) => {
+//     const projectElement = document.createElement('div')
+//     projectElement.className = 'portfolio-item'
+//     projectElement.innerHTML = `
+//             <div class="portfolio-item-image">
+//                 <img src="${project.thumbnailUrl}" alt="${project.name}">
+//                 <div class="portfolio-item-actions">
+//                     <button class="action-btn edit" data-id="${project.id}">
+//                         <span class="material-symbols-outlined">edit</span>
+//                     </button>
+//                     <button class="action-btn delete" data-id="${project.id}">
+//                         <span class="material-symbols-outlined">delete</span>
+//                     </button>
+//                 </div>
+//             </div>
+//             <div class="portfolio-item-content">
+//                 <h3>${project.title}</h3>
+//                 <p><strong>Client:</strong> ${project.client}</p>
+//                 <p><strong>Type:</strong> ${project.project_type}</p>
+//                 <p><strong>Date:</strong> ${formatDate(
+//       project.project_date
+//     )}</p>
+//             </div>
+//         `
 
-    portfolioItems.appendChild(projectElement)
-  })
+//     portfolioItems.appendChild(projectElement)
+//   })
 
-  // Add event listeners to action buttons
-  document.querySelectorAll('.action-btn.edit').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const id = parseInt(btn.getAttribute('data-id'))
-      editProject(id)
-      e.stopPropagation()
-    })
-  })
+//   // // Add event listeners to action buttons
+//   // document.querySelectorAll('.action-btn.edit').forEach((btn) => {
+//   //   btn.addEventListener('click', (e) => {
+//   //     const id = parseInt(btn.getAttribute('data-id'))
+//   //     editProject(id)
+//   //     e.stopPropagation()
+//   //   })
+//   // })
 
-  document.querySelectorAll('.action-btn.delete').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const id = parseInt(btn.getAttribute('data-id'))
-      showDeleteModal(id)
-      e.stopPropagation()
-    })
-  })
-}
+//   // document.querySelectorAll('.action-btn.delete').forEach((btn) => {
+//   //   btn.addEventListener('click', (e) => {
+//   //     const id = parseInt(btn.getAttribute('data-id'))
+//   //     showDeleteModal(id)
+//   //     e.stopPropagation()
+//   //   })
+//   // })
+// }
 
 // Show add form
 function showAddForm() {
@@ -234,19 +231,19 @@ function editProject(id) {
   window.scrollTo({ top: addPortfolioForm.offsetTop - 20, behavior: 'smooth' })
 }
 
-// Show delete confirmation modal
-function showDeleteModal(id) {
-  projectToDelete = id
-  deleteModal.style.display = 'flex'
-}
+// // Show delete confirmation modal
+// function showDeleteModal(id) {
+//   projectToDelete = id
+//   deleteModal.style.display = 'flex'
+// }
 
-// Delete project
-function deleteProject() {
-  portfolioData = portfolioData.filter((p) => p.id !== projectToDelete)
-  renderPortfolioItems()
-  deleteModal.style.display = 'none'
-  projectToDelete = null
-}
+// // Delete project
+// function deleteProject() {
+//   portfolioData = portfolioData.filter((p) => p.id !== projectToDelete)
+//   // renderPortfolioItems()
+//   deleteModal.style.display = 'none'
+//   projectToDelete = null
+// }
 
 // Handle video upload
 function handleVideoUpload(e) {

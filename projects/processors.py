@@ -1,11 +1,11 @@
 import os
 import tempfile
 import ffmpeg
-from thumbnails.processors import BaseProcessor
+# from thumbnails.processors import BaseProcessor
 from django.core.files.base import ContentFile
 from PIL import Image
 
-class VideoThumbnailProcessor(BaseProcessor):
+class VideoThumbnailProcessor():
     """
     Processor for creating WebP thumbnails from video files.
     """

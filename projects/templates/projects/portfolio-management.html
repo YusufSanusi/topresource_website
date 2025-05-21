@@ -29,11 +29,11 @@
                 <div class="form-group">
                     <label class="form-label">{{field.label}}</label>
                     <div class="file-upload" id="videoUpload">
-                        <input type="file" id="featured_video" name="{{field.name}}" accept="video/*" data-content_type="video/mp4">
+                        <input type="file" id="featured_video" name="{{field.name}}" accept="video/*">
                         <div class="file-upload-icon material-symbols-outlined">video_library</div>
                         <div class="file-upload-text">
                             <p>Upload a video file</p>
-                            <small>(MP4, MOV, AVI, etc.) Max 500MB</small>
+                            <small>(MP4, MOV, AVI, etc.) Max 50MB</small>
                         </div>
                     </div>
                     <div id="videoPreview" class="preview-container" style="display: none;">
@@ -65,9 +65,36 @@
         <!-- Portfolio Items Grid -->
         <div class="portfolio-items" id="portfolioItems">
             <!-- Portfolio items will be dynamically inserted here -->
+             {% for project in portfolio %}
+             <a href="">
+             <div class="portfolio-item">
+                <div class="portfolio-item-image">
+                <img src="{{project.thumbnailUrl}}" alt="{{project.name}}">
+                <!-- <div class="portfolio-item-actions">
+                    <a href="" class="action-btn edit" data-id="{{project.id}}">
+                        <span class="material-symbols-outlined">edit</span>
+                    </a>
+                    <a href="" class="action-btn delete" data-id="{{project.id}}">
+                        <span class="material-symbols-outlined">delete</span>
+                    </a>
+                </div> -->
+                </div>
+            <div class="portfolio-item-content">
+                <h3>{{project.title}}</h3>
+                <p><strong>Client:</strong> {{project.client}}</p>
+                <p><strong>Type:</strong> {{project.project_type}}</p>
+                <p><strong>Date:</strong> {{formatDate(
+                  project.project_date
+                )}}</p>
+            </div>
+            </div>
+            </a>
+            {% endfor %}
         </div>
     </div>
 </section>
+
+
 
 {% endblock %}
 

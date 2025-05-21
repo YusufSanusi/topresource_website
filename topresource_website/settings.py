@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
+from easy_thumbnails.conf import Settings as easy_thumbnail_settings
 
 from dotenv import load_dotenv
 
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'easy_thumbnails',
     'thumbnails',
     'storages',
 ]
@@ -251,6 +253,20 @@ THUMBNAILS = {
             ],
         },
     },
+}
+
+easy_thumbnail_settings = {
+    # 'THUMBNAIL_ALIASES': {
+    #     'default': {
+    #         'small': {'size': (320, 240), 'crop': True},
+    #         'medium': {'size': (640, 480), 'crop': True},
+    #         'large': {'size': (1280, 720), 'crop': True},
+    #     },
+    # },
+    'THUMBNAIL_DEFAULT_STORAGE': 'storages.backends.s3.S3Storage',
+    'THUMBNAIL_MEDIA_URL': os.getenv('AWS_S3_URL', ''),
+    'THUMBNAIL_MEDIA_ROOT': 'media/',
+    'THUMBNAIL_DEBUG': DEBUG,
 }
 
 

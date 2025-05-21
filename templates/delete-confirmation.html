@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block title %}Delete Confirmation{% endblock %}
+
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="management-header">
+            <h2>Delete Confirmation</h2>
+        </div>
+        
+        <!-- Delete Confirmation Modal -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Confirm Deletion</h3>
+                </div>
+                <form action="{% url 'delete_project' %}" method="POST"></form>
+                <p>Are you sure you want to delete {{object}}? This action cannot be undone.</p>
+                <div class="modal-actions">
+                    <a href="{{request.GET.next}}" id="cancelDelete" class="btn btn-outline">Cancel</a>
+                    <input type="submit" id="confirmDelete" class="btn btn-primary" style="background-color: var(--md-sys-color-error);" value="Delete" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}
