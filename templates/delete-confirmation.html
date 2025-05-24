@@ -18,7 +18,7 @@
                 <div class="modal-header">
                     <h3>Confirm Deletion</h3>
                 </div>
-                <form action="{% url 'delete_project' %}" method="POST"></form>
+                <form action="{% url 'delete-project' %}" method="POST"></form>
                 <p>Are you sure you want to delete {{object}}? This action cannot be undone.</p>
                 <div class="modal-actions">
                     <a href="{{request.GET.next}}" id="cancelDelete" class="btn btn-outline">Cancel</a>

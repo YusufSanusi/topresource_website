@@ -177,3 +177,5 @@ cython_debug/
 
 # Project specific
 dsai.html
+rough_work*
+pyproject.toml

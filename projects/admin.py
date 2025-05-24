@@ -3,7 +3,7 @@ from .models import Project, ProjectType
 
 # Register your models here.
 class ProjectAdmin(admin.ModelAdmin):
-    fields = ['title', 'client', 'project_date', 'description', 'featured_video', 'project_type']
+    fields = ['title', 'client', 'date', 'description', 'featured_video', 'project_type']
 
 
 class ProjectTypeAdmin(admin.ModelAdmin):

@@ -47,11 +47,11 @@ const closeModal = document.getElementById('closeModal')
 // const confirmDelete = document.getElementById('confirmDelete')
 
 // Form elements
-const projectId = document.getElementById('id')
+// const projectId = document.getElementById('id')
 const title = document.getElementById('title')
 const client = document.getElementById('client')
 const projectType = document.getElementById('project_type')
-const projectDate = document.getElementById('project_date')
+const projectDate = document.getElementById('date')
 const description = document.getElementById('description')
 const featuredVideo = document.getElementById('featured_video')
 const videoUpload = document.getElementById('videoUpload')
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //                 <p><strong>Client:</strong> ${project.client}</p>
 //                 <p><strong>Type:</strong> ${project.project_type}</p>
 //                 <p><strong>Date:</strong> ${formatDate(
-//       project.project_date
+//       project.date
 //     )}</p>
 //             </div>
 //         `
@@ -163,8 +163,8 @@ function showAddForm() {
 // Reset form
 function resetForm() {
   portfolioForm.reset()
-  currentProjectId = null
-  projectId.value = ''
+  // currentProjectId = null
+  // projectId.value = ''
   videoPreview.style.display = 'none'
   videoPlayer.style.display = 'none'
   addPortfolioForm.style.display = 'none'
@@ -178,7 +178,7 @@ function resetForm() {
 //   const project = {
 //     name: title.value,
 //     client: client.value,
-//     type: projectType.value,
+//     project_type: projectType.value,
 //     date: projectDate.value,
 //     description: description.value,
 //     // In a real app, you would upload files to a server and get URLs
@@ -212,24 +212,24 @@ function resetForm() {
 //   alert('Project saved successfully!')
 // }
 
-// Edit project
-function editProject(id) {
-  const project = portfolioData.find((p) => p.id === id)
-  if (!project) return
+// // Edit project
+// function editProject(id) {
+//   const project = portfolioData.find((p) => p.id === id)
+//   if (!project) return
 
-  currentProjectId = id
-  projectId.value = id
-  title.value = project.name
-  client.value = project.client
-  projectType.value = project.type
-  projectDate.value = project.date
-  description.value = project.description
+//   currentProjectId = id
+//   projectId.value = id
+//   title.value = project.name
+//   client.value = project.client
+//   projectType.value = project.project_type
+//   projectDate.value = project.date
+//   description.value = project.description
 
-  // Show form
-  addPortfolioForm.style.display = 'block'
-  addNewBtn.style.display = 'none'
-  window.scrollTo({ top: addPortfolioForm.offsetTop - 20, behavior: 'smooth' })
-}
+//   // Show form
+//   addPortfolioForm.style.display = 'block'
+//   addNewBtn.style.display = 'none'
+//   window.scrollTo({ top: addPortfolioForm.offsetTop - 20, behavior: 'smooth' })
+// }
 
 // // Show delete confirmation modal
 // function showDeleteModal(id) {

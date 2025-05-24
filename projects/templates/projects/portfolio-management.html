@@ -20,7 +20,7 @@
         <!-- Add Portfolio Form (initially hidden) -->
         <div id="addPortfolioForm" class="add-portfolio-form" style="display: none;">
             <h3>Add New Portfolio Item</h3>
-            <form id="portfolioForm" action="{% url 'portfolio_management' %}" method="POST" enctype="multipart/form-data">
+            <form id="portfolioForm" action="{% url 'portfolio-management' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="hidden" id="id">
                 
@@ -57,7 +57,7 @@
                 
                 <div class="form-actions">
                     <button type="button" id="cancelBtn" class="btn btn-outline">Cancel</button>
-                    <button type="submit" id="saveBtn" class="btn btn-primary">Save Project</button>
+                    <input type="submit" id="saveBtn" class="btn btn-primary" value="Save Project"/>
                 </div>
             </form>
         </div>
@@ -65,32 +65,37 @@
         <!-- Portfolio Items Grid -->
         <div class="portfolio-items" id="portfolioItems">
             <!-- Portfolio items will be dynamically inserted here -->
+             {% if portfolio %}
              {% for project in portfolio %}
              <a href="">
              <div class="portfolio-item">
-                <div class="portfolio-item-image">
-                <img src="{{project.thumbnailUrl}}" alt="{{project.name}}">
-                <!-- <div class="portfolio-item-actions">
-                    <a href="" class="action-btn edit" data-id="{{project.id}}">
-                        <span class="material-symbols-outlined">edit</span>
-                    </a>
-                    <a href="" class="action-btn delete" data-id="{{project.id}}">
-                        <span class="material-symbols-outlined">delete</span>
-                    </a>
-                </div> -->
-                </div>
+                <div class="portfolio-image">
+                <img src="{{project.thumbnailURL}}" alt="{{project.name}}">
+                
+            </div>
             <div class="portfolio-item-content">
                 <h3>{{project.title}}</h3>
                 <p><strong>Client:</strong> {{project.client}}</p>
                 <p><strong>Type:</strong> {{project.project_type}}</p>
                 <p><strong>Date:</strong> {{formatDate(
-                  project.project_date
+                  project.date
                 )}}</p>
             </div>
             </div>
             </a>
             {% endfor %}
+            {% else %}
+            <div class="error-message" style="text-align: center; padding: 2rem;">
+                <span class="material-symbols-outlined" style="font-size: 3rem; color: var(--md-sys-color-error);">
+                    error
+                </span>
+                <h2>Project Not Found</h2>
+                <p>No portfolio items yet. Click "Add New Project" to get started.</p>
+            </div>>
+            {% endif %}
         </div>
+
+        {% include 'pagination.html' %}
     </div>
 </section>
 

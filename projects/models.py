@@ -1,8 +1,6 @@
 import os
 from django.db import models
-from thumbnails.fields import ImageField
 from easy_thumbnails.fields import ThumbnailerImageField
-from django.urls import reverse
 from django.core.exceptions import ValidationError
 from .processors import VideoThumbnailProcessor
 import uuid
@@ -19,42 +17,11 @@ def validate_video_file(value):
     if not ext in valid_extensions:
         raise ValidationError(f'Unsupported file extension. Allowed extensions are: {", ".join(valid_extensions)}')
     
-    # Check the file's MIME type
-    # You can also use python-magic for more robust MIME type checking
+    # Check the file's MIME type using python-magic for more robust MIME type checking
     mime = magic.Magic(mime=True)
     mime_type = mime.from_buffer(value.read())
     if not mime_type.startswith('video/'):
         raise ValidationError('Uploaded file is not a valid video.')
-    
-
-# class Video(models.Model):
-#     title = models.CharField(max_length=200)
-#     # Use Django 5.2 storage dictionary format and add video validation
-#     video_file = models.FileField(
-#         upload_to='videos/',
-#         validators=[validate_video_file],
-#         help_text="Upload video files only (MP4, MOV, AVI, etc.)"
-#     )
-#     # For the thumbnail field, django-thumbnails will use the storage specified in settings
-#     thumbnail = ImageField(blank=True, null=True, upload_to='thumbnails/')
-#     created = models.DateTimeField(auto_now_add=True)
-    
-#     def __str__(self):
-#         return self.title
-    
-#     def get_absolute_url(self):
-#         return reverse('video_detail', args=[str(self.id)])
-    
-#     def save(self, *args, **kwargs):
-#         """Generate thumbnail when the video is saved"""
-#         is_new = self.pk is None
-#         super().save(*args, **kwargs)
-        
-#         # Generate thumbnail on new uploads
-#         if is_new and self.video_file:
-#             self.thumbnail.generate_for_sizes(['small', 'medium', 'large'])
-#             # Save again to update the thumbnail field in the database
-#             super().save(update_fields=['thumbnail'])
 
 
 # Create your models here.
@@ -70,7 +37,7 @@ class Project(models.Model):
     )
     thumbnail = ThumbnailerImageField(blank=True, null=True, upload_to='thumbnails/', default='thumbnails/default-video.png')
     project_type = models.ForeignKey('ProjectType', null=True, blank=True, on_delete=models.SET_NULL)
-    project_date = models.DateField(null=True, blank=True)
+    date = models.DateField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
@@ -83,20 +50,26 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         """Generate thumbnail when the video is saved"""
-        is_new = self.pk is None
+        # generating_thumbnail = self.pk is None
+        # super().save(*args, **kwargs)
+        if self.featured_video:
+            video_extension = os.path.splitext(self.featured_video.name)[1].lower()
+            self.featured_video.name = f'video_{self.title}{video_extension}'.lower()
+
+        # Check if video is being updated or is new
+        generating_thumbnail = False
+        if self.featured_video and (not self.pk or 'featured_video' in kwargs.get('update_fields', [])):
+            generating_thumbnail = True
+
         super().save(*args, **kwargs)
-        
-        # Generate thumbnail on new uploads
-        if is_new and self.featured_video:
-            try:
-                self.thumbnail = VideoThumbnailProcessor().process(self.featured_video, width=320, height=240, time=2.5, quality=80)
-                # Save again to update the thumbnail field in the database
-                super().save(update_fields=['thumbnail'])
-            except Exception as e:
-                print(f"Error generating thumbnail: {e}")
-                # Optionally, you can set a default thumbnail or handle the error as needed
-                self.thumbnail = 'thumbnails/default-video.png'
-                super().save(update_fields=['thumbnail'])
+
+        thumbnail_processor = VideoThumbnailProcessor(self.featured_video)
+        temp_thumbnail = thumbnail_processor.process(width=1280, height=720)
+
+        self.thumbnail.save(f"thumbnail_{self.title}.webp".lower(), temp_thumbnail, save=False)
+
+        # Save again to update the thumbnail field in the database
+        super().save(update_fields=['thumbnail'])
 
     @property
     def videoURL(self):

@@ -118,3 +118,5 @@ node_modules/
 dsai.html
 docker-compose.yaml
 static/
+rough_work*
+pyproject.toml

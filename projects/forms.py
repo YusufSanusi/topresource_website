@@ -5,11 +5,11 @@ from .models import Project, ProjectType
 class ProjectForm(ModelForm):
     class Meta:
         model = Project
-        fields = ['title', 'client', 'project_date', 'description', 'featured_video', 'project_type']
+        fields = ['title', 'client', 'date', 'description', 'featured_video', 'project_type']
         widgets = {
             'title': TextInput(attrs={'id': 'title'}),
             'client': TextInput(attrs={'id': 'client'}),
-            'project_date': DateInput(attrs={'id': 'project_date'}),
+            'date': DateInput(attrs={'id': 'date'}),
             'description': Textarea(attrs={'rows': 4, 'id': 'description'}),
             'project_type': Select(attrs={'id': 'project_type'}, choices=ProjectType.objects.all()),
         }
@@ -18,7 +18,7 @@ class ProjectForm(ModelForm):
             'client': 'Client',
             'description': 'Project Description',
             'featured_video': 'Upload Video',
-            'project_type': 'Project Type',
+            'project_type': 'Project ProjectType',
         }
         help_texts = {
             'title': 'Enter the title of the project.',

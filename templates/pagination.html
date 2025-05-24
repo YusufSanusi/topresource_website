@@ -1,0 +1,26 @@
+{% if page_obj.has_other_pages %}
+    <div class="pagination" id="pagination">
+        <!-- Pagination buttons will be added here -->
+        {% if page_obj.has_previous %}
+        <a class="pagination-btn" href="?page=1"><span class="material-symbols-outlined">first_page</span></a>
+        <a class="pagination-btn" href="?page={{ page_obj.previous_page_number }}"><span class="material-symbols-outlined">chevron_left</span></a>
+        {% endif %}
+
+        {% for page in custom_range %}
+
+        {% if page == page_obj.number %}
+        <a class="pagination-btn active" href="?page={{page}}">{{page}}</a>
+        {% else %}
+        <a class="pagination-btn" href="?page={{page}}">{{page}}</a>
+        {% endif %}
+
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a class="pagination-btn" href="?page={{ page_obj.next_page_number }}"><span class="material-symbols-outlined">chevron_right</span></a>
+        <a class="pagination-btn" href="?page={{ page_obj.paginator.num_pages }}"><span class="material-symbols-outlined">last_page</span></a>
+        {% endif %}
+    </div>
+    
+    <div class="pagination-info" id="paginationInfo"></div>
+{% endif %}
