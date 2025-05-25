@@ -240,6 +240,36 @@ nav {
   margin-bottom: 3rem;
 }
 
+/* Auth Pages */
+.auth-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--md-surface);
+  border-radius: 16px;
+  box-shadow: var(--md-elevation-1);
+}
+
+.auth-title {
+  text-align: center;
+  color: var(--md-primary);
+  margin-bottom: 2rem;
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 /* Services Grid */
 .services-grid {
   display: grid;
@@ -1010,5 +1040,10 @@ footer {
   
   .carousel-btn {
       display: none;
+  }
+
+  .auth-container {
+    padding: 1.5rem;
+    margin: 1rem;
   }
 }

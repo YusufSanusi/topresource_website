@@ -13,9 +13,10 @@ from .forms import CustomUserCreationForm, ProfileForm
 # Create your views here.
 def loginUser(request):
     if request.user.is_authenticated:
-        return redirect('profiles')
+        return redirect('landing-page')
 
     if request.method == 'POST':
+        print(request.POST)
         username = request.POST['username'].lower()
         password = request.POST['password']
 
@@ -28,7 +29,7 @@ def loginUser(request):
 
         if user is not None:
             login(request, user)
-            return redirect(request.GET['next'] if 'next' in request.GET else 'account')
+            return redirect(request.GET['next'] if 'next' in request.GET else 'landing-page')
 
         else:
             messages.error(request, 'Username OR password is incorrect')
@@ -44,6 +45,7 @@ def logoutUser(request):
 
 def registerUser(request):
     form = CustomUserCreationForm()
+    print(form)
 
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -61,5 +63,5 @@ def registerUser(request):
             messages.success(
                 request, 'An error has occurred during registration')
 
-    context = {'page': page, 'form': form}
+    context = {'form': form}
     return render(request, 'users/register.html', context)

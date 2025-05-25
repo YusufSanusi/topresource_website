@@ -43,7 +43,7 @@ def contact(request):
             fail_silently=fail_silently,
         )
 
-        return redirect('landing_page')
+        return redirect('landing-page')
 
     return render(request, 'pages/contact.html')
 
